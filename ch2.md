@@ -2,24 +2,45 @@
 
 ## Conceptual questions
 
-### Problem 1
+1. Flexible vs. Inflexible
+  A. (flexible is worse) For large n and small p, we are in danger of overfitting if we use a model that is too flexible. We could eliminate bias, but we would do so at the cost of high variance. I would advocate for using an *inflexible* model
+  B. For large p and small n, we should use a flexible model. We ???
+  C. (flexible is better) For a highly non-linear response, we are inclined to use a more flexible model. By definition, "flexibility" is referring to our ability to capture complexity in the form of higher-order (i.e. non-linear) terms (e.g. power series).
+  D. (flexible is the same as inflexible) For a data set with extremely large `Var(eps^2)`, there is not yet a preferred method -- `Var(eps^2)` simply tells us the baseline of the test MSE. The `Var` that counts is the `Var` of our model under changes in input points.
 
-1. (flexible is worse) For large n and small p, we are in danger of overfitting if we use a model that is too flexible. We could eliminate bias, but we would do so at the cost of high variance. I would advocate for using an *inflexible* model 
-2. For large p and small n, we should use a flexible model. We ??? 
-3. (flexible is better) For a highly non-linear response, we are inclined to use a more flexible model. By definition, "flexibility" is referring to our ability to capture complexity in the form of higher-order (i.e. non-linear) terms (e.g. power series). 
-4. (flexible is the same as inflexible) For a data set with extremely large `Var(eps^2)`, there is not yet a preferred method -- `Var(eps^2)` simply tells us the baseline of the test MSE. The `Var` that counts is the `Var` of our model under changes in input points. 
+2. Identifying model parameters
+  A. regression (salary is a quantity); n = 500 (companies); p = 3 (profit, #emp, industry); we are interested in inference
+  B. classification (success v failure); n = 20 (products); p = 13, prediction
+  C. regresion (USD); n = 52; p = 3; inference (effect of stock changes)
 
-### Problem 2
+3. Variance-Bias Tradeoff
+  A. squared bias goes down; variance goes up; training error starts above bayes and decreases; test error is U shaped (sum of squared bias and variance); and irreducible is flat line
+  B. flexibility allows model to completely explain all data points: bias goes down; flexibility also overfits the pts it saw in training, and will completely change if there are new points: var goes up; training error has no var so bias just gets wiped out; test error is the sum of the var and bias and var wins out; irreducible is inherent in data and irreducible (duh)
 
-1. regression (salary is a quantity); n = 500 (companies); p = 3 (profit, #emp, industry); we are interested in inference 
-2. classification (success v failure); n = 20 (products); p = 13, prediction 
-3. regresion (USD); n = 52; p = 3; inference (effect of stock changes) 
+4. Real-life applications
+  A. classification
+    1. response: will donald trump receive the rep nomination. predictors: polling data, previous election results given polling data, demographic change data; goal: prediction
+    2. response: will my ffl team win or lose this week. predictors: score projections for myself and my opponent, game results given previous predictions. goal: prediction
+    3. response: who should I start on my ffl team. predictors: same as above. goal: inferrence
+  B. regression
+    1. response: how much does the price of USD affect AAPL options. predictors: tick data for both symbols. goal: inferrence
+    2. response: how many votes will donald trump receive in the 2016 primary. predictors: polling data, previous election results given polling data, demographic change data; goal: prediction
+    3. response: how many points will I score this week. predictors: score projections for myself and my opponent, game results given previous predictions. goal: prediction
+  C. cluster analysis
+    1. ffl: identifying groups of "MVPs"
+    2. politics: identifying groups of voters with similar tendencies
+    3. trading: identify clusters of similarly-moving stocks
 
-### Problem 3
+5. Flexible vs. Inflexible II
+  A. The advantages of F methods are the ability to fit "more" of the data, and to fit more complicated models / underlying structures. They also will reduce the bias. This comes at a cost, however -- they are likely to overfit (equiv: they have a high variance)
+  B. F methods should be preferred particularly in cases with non-linear behavior, and especially when we are interested in predictability (where low bias matters). I methods are preferable when the goal is inferrence or interpretability.
 
-1. squared bias goes down; variance goes up; training error starts above bayes and decreases; test error is U shaped (sum of squared bias and variance); and irreducible is flat line
-2. flexibility allows model to completely explain all data points: bias goes down; flexibility also overfits the pts it saw in training, and will completely change if there are new points: var goes up; training error has no var so bias just gets wiped out; test error is the sum of the var and bias and var wins out; irreducible is inherent in data and irreducible (duh)
+6. Parametric v. non-paramteric
+  A. Parametric SL assumed a "parametric" or parameterized model, and asks how to best chose the parameters to reporoduce the test data. NP SL, on the other hand, makes no assumption about the model, but instead tries to rely on self-organization of the data, depending on the factors we have measured (e.g. clustering).
+  B. The advantages of P SL are in their lack of complexity (an entire model reduced to several parameters), and the resulting increase in interpretability. The tradeoff is in flexibility and possible bias -- we may have chosen a model that just doesn't fit the data well and overfit it, or chosen a model that is overly sensitive to changes in test data. NP SL have the inverse characteristics: very flexible and robust to bias, but not inferrable.
 
-### Problem 4
-
-1.
+7. test case
+  A. euclidean distances: 3, 2, sqrt(10), sqrt(5), sqrt(2), sqrt(3)
+  B. K = 1 ==> Y = green. obs. 5 is closest to (0, 0, 0)
+  C. K = 3 ==> Y = red. three smallest observations are 2, 5, and 6 (red, green, red)
+  C. For highly non-linear Bayes decision boundaries, we would expect K to be small. Increasing K has a renormalizing affect, smoothing out local variation and reducing the number of curves / features in the decision boundary.
